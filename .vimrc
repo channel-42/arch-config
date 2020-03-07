@@ -17,6 +17,7 @@ Plugin 'gabrielelana/vim-markdown'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'vim-syntastic/syntastic'
 Plugin 'junegunn/goyo.vim'
+Plugin 'junegunn/limelight.vim'
 Plugin 'google/vim-maktaba'
 Plugin 'google/vim-codefmt'
 Plugin 'google/vim-glaive'
@@ -90,6 +91,8 @@ autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in
 map <silent> <F5> : NERDTreeToggle<CR>
 nnoremap <S-s> :w! \|:silent !/home/lukas/scripts/bash/compiler.sh <c-r>%<CR><C-l> 
 nnoremap <silent> <F4> :silent !/home/lukas/scripts/bash/opout.sh <c-r>%<CR><C-l> 
+nnoremap <silent> <C-f> :call ToggleCoding()<CR>
+
 " setup for gruvbox
 "set t_Co=256
 set background=dark
@@ -101,9 +104,39 @@ hi EndOfBuffer ctermbg=none
 hi LineNr ctermbg=none
 " let g:gruvbox_contrast_dark = 'soft'
 
-" setup for goyo
+" setup for goyo & limelight
+let g:limelight_conceal_ctermfg = 'gray'
 let g:goyo_width = 120
 let g:goyo_height = 95
+let b:code = "no"
+"Toggle Goyo and Limelight on and off
+function! ToggleCoding()
+    if exists("b:code") && b:code == "yes"
+        let b:code = "no"
+        Goyo!
+        Limelight!
+    else
+        let b:code= "yes"
+        Goyo
+        Limelight
+    endif
+endfunction
+"remove weird background change on exit 
+function s:goyo_enter()
+    hi! VertSplit guibg=NONE
+endfunction
+function s:goyo_leave()
+    hi Normal guibg=NONE ctermbg=NONE
+    hi NonText ctermbg=none ctermfg=NONE 
+    hi EndOfBuffer ctermbg=none
+    hi LineNr ctermbg=none
+endfunction
+
+
+autocmd! User GoyoEnter nested call <SID>goyo_enter()
+autocmd! User GoyoLeave nested call <SID>goyo_leave()
+    
+
 "startify options
 let g:header_ascii = [
             \ ' =================     ===============     ===============   ========  ======== ',
