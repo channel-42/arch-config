@@ -29,7 +29,6 @@ Plugin 'majutsushi/tagbar'
 Plugin 'mhinz/vim-startify'
 Plugin 'mhartington/oceanic-next'
 
-
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 call glaive#Install()        " enable this line after the installation of glaive
