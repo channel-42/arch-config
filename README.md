@@ -1,4 +1,4 @@
-# Arch Config [OLD, Please see my dotfiles repo for my current setip]
+# Arch Config [OLD, Please see my dotfiles repo for my current setup]
 
 These are the dotfiles and custom scripts that I use on my main Arch machine.
 Not all programms that I use will be listed here, but the most essential will each have a dedicated section in the readme, with a general overview of the mods.
